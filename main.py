@@ -30,6 +30,12 @@ def index():
 def newpost():
     if request.method == 'POST':
         #WORK HERE !!!!!!!!!!!!!
+        blog_title = request.form['blog_title']
+        blog_body = request.form['blog_body']
+        new_entry = Blog(blog_title, blog_body)
+        db.session.add(new_entry)
+        db.session.commit()
+        return redirect('/blog')
     
     return render_template('newpost.html')
 
