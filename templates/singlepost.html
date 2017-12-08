@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<!--The hidden value is probably what i need for the single post site.-->
+<form action="/delete-task" method="POST" style="display:inline-block;">
+    <input type="hidden" name="task-id" value="{{task.id}}" />
+    <input type="submit" value="Done!" />
+</form>
+{% endblock %}
+
+<!--Always keep instances plural-->
