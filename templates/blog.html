@@ -8,7 +8,7 @@
 
 <ul>
     {% for entry in entries %}
-    <p>{{entry.title}}</p>
+    <p><a href='/newpost'>{{entry.title}}</a></p>  <!--Links to newpost site, should link to its own post site-->
     <p>{{entry.body}}</p>
     <hr />
     {% endfor %}

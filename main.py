@@ -28,7 +28,9 @@ def index():
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
-
+    if request.method == 'POST':
+        #WORK HERE !!!!!!!!!!!!!
+    
     return render_template('newpost.html')
 
 
