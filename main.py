@@ -39,6 +39,12 @@ def newpost():
     
     return render_template('newpost.html')
 
+@app.route('/singlepost', methods=['POST', 'GET'])
+def singlepost():
+
+#Should pull in a single blog entry and display it on its own page
+    return render_template('singlepost.html')
+
 
 
 
