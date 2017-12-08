@@ -19,12 +19,17 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
-
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
+@app.route('/blog', methods=['POST', 'GET'])
 def index():
     entries = Blog.query.all()
 
     return render_template('blog.html', entries=entries)
+
+@app.route('/newpost', methods=['POST', 'GET'])
+def newpost():
+
+    return render_template('newpost.html')
 
 
 

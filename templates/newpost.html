@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Blog Post</h1>
+
+
+    <form action="/" method="post">
+        <label for="blog_title">Blog Title: </label><br>
+        <input type="text" name="rot">
+        <p>
+        <label for="blog_title">Blog Body: </label><br>
+        <textarea name="text"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="Submit"/>
+        </p>
+    </form>
+
+{% endblock %}
+
+<!--Always keep instances plural-->
