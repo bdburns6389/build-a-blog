@@ -19,17 +19,10 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
-@app.route('/')
-@app.route('/blog', methods=['POST', 'GET'])
-def index():
-    entries = Blog.query.all()
-
-    return render_template('blog.html', entries=entries)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
     if request.method == 'POST':
-        #WORK HERE !!!!!!!!!!!!!
         blog_title = request.form['blog_title']
         blog_body = request.form['blog_body']
         new_entry = Blog(blog_title, blog_body)
@@ -39,15 +32,20 @@ def newpost():
     
     return render_template('newpost.html')
 
-@app.route('/singlepost', methods=['POST', 'GET'])
-def singlepost():
 
-#Should pull in a single blog entry and display it on its own page
-    return render_template('singlepost.html')
+#WORK HERE!!!!!!!!!!!!!!!!!!!!!!!!!
+@app.route('/blog', methods=['POST','GET'])
+def blog():
+    entries= Blog.query.all()
+
+    return render_template('blog.html', entries=entries)
 
 
+@app.route('/', methods=['POST', 'GET'])
+def index():
+    entries = Blog.query.all()
 
-
+    return render_template('blog.html', entries=entries)
 
 if __name__ == "__main__":
     app.run()
