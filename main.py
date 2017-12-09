@@ -28,9 +28,12 @@ def newpost():
         new_entry = Blog(blog_title, blog_body)
         db.session.add(new_entry)
         db.session.commit()
-        return render_template('/singlepost.html', individual_entry=new_entry)
+    
+        return redirect('/blog?id='+str(new_entry.id))
     
     return render_template('newpost.html')
+
+
 
 
 @app.route('/blog', methods=['POST','GET'])
@@ -38,7 +41,7 @@ def blog():
     id_exists = request.args.get('id')
     if id_exists:
         individual_entry = Blog.query.get(id_exists)
-        return render_template('singlepost.html', individual_entry=individual_entry) 
+        return render_template('/singlepost.html', individual_entry=individual_entry) 
     else:
         entries= Blog.query.all()
         return render_template('blog.html', entries=entries)
@@ -47,7 +50,6 @@ def blog():
 @app.route('/', methods=['POST', 'GET'])
 def index():
     entries = Blog.query.all()
-    print(dir(Blog))
     return render_template('blog.html', entries=entries)
 
 if __name__ == "__main__":
