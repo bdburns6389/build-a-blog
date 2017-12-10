@@ -36,22 +36,24 @@ def newpost():
             new_entry = Blog(blog_title, blog_body)
             db.session.add(new_entry)
             db.session.commit()
-            return redirect('/blog?id='+str(new_entry.id))  #Accesses id attribute 
+            return redirect('/blog?id='+str(new_entry.id))  #Accesses id attribute
         else:
-            return render_template('/newpost.html', blog_title=blog_title, 
-                blog_body=blog_body, title_error=title_error, body_error=body_error)
+            return render_template('/newpost.html', blog_title=blog_title,
+                                   blog_body=blog_body, title_error=title_error,
+                                   body_error=body_error)
+
     return render_template('newpost.html')
 
 
 
-@app.route('/blog', methods=['POST','GET'])
+@app.route('/blog', methods=['POST', 'GET'])
 def blog():
     id_exists = request.args.get('id')
     if id_exists:
         individual_entry = Blog.query.get(id_exists)
-        return render_template('/singlepost.html', individual_entry=individual_entry) 
+        return render_template('/singlepost.html', individual_entry=individual_entry)
     else:
-        entries= Blog.query.all()
+        entries = Blog.query.all()
         return render_template('blog.html', entries=entries)
 
 
