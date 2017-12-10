@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 
 
 app = Flask(__name__)
@@ -22,26 +23,26 @@ class Blog(db.Model):
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
-    #NEEDS TO HAVE VALIDATION!!!!!
+    #Still commits everything to database, rearrange if statements to make this work correctly.
     title_error = ""
     body_error = ""
     if request.method == 'POST':
         blog_title = request.form['blog_title']
         blog_body = request.form['blog_body']
-        new_entry = Blog(blog_title, blog_body)
-        db.session.add(new_entry)
-        db.session.commit()
         if len(blog_title) < 1:
             title_error = "Please enter a Title for your Blog."
         if len(blog_body) < 1:
             body_error = "Please enter a Body for your Blog."
         if not title_error and not body_error:
+            new_entry = Blog(blog_title, blog_body)
+            db.session.add(new_entry)
+            db.session.commit()
             return redirect('/blog?id='+str(new_entry.id))  #Accesses id attribute 
         else:
             return render_template('/newpost.html', blog_title=blog_title, 
                 blog_body=blog_body, title_error=title_error, body_error=body_error)
     return render_template('newpost.html')
-#Find a way to keep non-error box populated with text.
+
 
 
 
@@ -52,7 +53,7 @@ def blog():
         individual_entry = Blog.query.get(id_exists)
         return render_template('/singlepost.html', individual_entry=individual_entry) 
     else:
-        entries= Blog.query.all()
+        entries= Blog.query.get(id_exists)
         return render_template('blog.html', entries=entries)
 
 
