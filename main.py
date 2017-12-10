@@ -53,7 +53,7 @@ def blog():
         individual_entry = Blog.query.get(id_exists)
         return render_template('/singlepost.html', individual_entry=individual_entry) 
     else:
-        entries= Blog.query.get(id_exists)
+        entries= Blog.query.all()
         return render_template('blog.html', entries=entries)
 
 
