@@ -38,7 +38,8 @@ def newpost():
         if not title_error and not body_error:
             return redirect('/blog?id='+str(new_entry.id))  #Accesses id attribute 
         else:
-            return render_template('/newpost.html', title_error=title_error, body_error=body_error)
+            return render_template('/newpost.html', blog_title=blog_title, 
+                blog_body=blog_body, title_error=title_error, body_error=body_error)
     return render_template('newpost.html')
 #Find a way to keep non-error box populated with text.
 
@@ -62,5 +63,3 @@ def index():
 
 if __name__ == "__main__":
     app.run()
-
-#Newpost returns singlepost.html, but should return blog.html with ?= query paramters.
